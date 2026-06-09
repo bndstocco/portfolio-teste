@@ -14,40 +14,46 @@ export default function Hero() {
   const hero = t.hero;
 
   useEffect(() => {
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    const isMobile = window.innerWidth < 900 || window.matchMedia('(pointer: coarse)').matches;
+    const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
-    tl.fromTo(
-      linesRef.current,
-      { y: '120%', rotateX: 35, scale: 0.9 },
-      { y: '0%', rotateX: 0, scale: 1, duration: 1, stagger: 0.15, ease: 'back.out(1.7)' }
-    )
-    .fromTo(
-      roleRef.current,
-      { y: 40, opacity: 0, scale: 0.95, filter: 'blur(8px)' },
-      { y: 0, opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.9 },
-      '-=0.3'
-    )
-    .fromTo(
-      eyebrowRef.current,
-      { x: -20, opacity: 0 },
-      { x: 0, opacity: 1, duration: 0.5 },
-      '-=0.7'
-    )
-    .fromTo(
-      ctaRef.current.children,
-      { y: 30, opacity: 0, scale: 0.95 },
-      { y: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.12, ease: 'back.out(2)' },
-      '-=0.2'
-    )
-    .fromTo(
-      statsRef.current.children,
-      { x: 40, opacity: 0, rotateY: 15 },
-      { x: 0, opacity: 1, rotateY: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out' },
-      '-=0.5'
-    );
+    if (isMobile) {
+      tl.fromTo(linesRef.current, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.1 })
+        .fromTo(roleRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4 }, '-=0.1')
+        .fromTo(eyebrowRef.current, { opacity: 0 }, { opacity: 1, duration: 0.3 }, '-=0.3')
+        .fromTo(ctaRef.current.children, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, stagger: 0.08 }, '-=0.1')
+        .fromTo(statsRef.current.children, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, stagger: 0.06 }, '-=0.2');
+    } else {
+      tl.fromTo(
+        linesRef.current,
+        { y: '120%', rotateX: 35, scale: 0.9 },
+        { y: '0%', rotateX: 0, scale: 1, duration: 1, stagger: 0.15, ease: 'back.out(1.7)' }
+      )
+      .fromTo(
+        roleRef.current,
+        { y: 40, opacity: 0, scale: 0.95, filter: 'blur(8px)' },
+        { y: 0, opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.9 },
+        '-=0.3'
+      )
+      .fromTo(
+        eyebrowRef.current,
+        { x: -20, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.5 },
+        '-=0.7'
+      )
+      .fromTo(
+        ctaRef.current.children,
+        { y: 30, opacity: 0, scale: 0.95 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.12, ease: 'back.out(2)' },
+        '-=0.2'
+      )
+      .fromTo(
+        statsRef.current.children,
+        { x: 40, opacity: 0, rotateY: 15 },
+        { x: 0, opacity: 1, rotateY: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out' },
+        '-=0.5'
+      );
 
-    const isTouch = window.matchMedia('(pointer: coarse)').matches;
-    if (!isTouch) {
       const particles = heroRef.current.querySelector('.hero-particles');
       if (particles) {
         for (let i = 0; i < 40; i++) {
@@ -60,7 +66,6 @@ export default function Hero() {
           dot.style.height = size + 'px';
           dot.style.opacity = 0.1 + Math.random() * 0.3;
           particles.appendChild(dot);
-
           gsap.to(dot, {
             y: -(50 + Math.random() * 150),
             x: (Math.random() - 0.5) * 80,
@@ -72,28 +77,27 @@ export default function Hero() {
           });
         }
       }
-    }
 
-    const handleMouse = (e) => {
-      const { clientX, clientY } = e;
-      const x = (clientX / window.innerWidth - 0.5) * 20;
-      const y = (clientY / window.innerHeight - 0.5) * 20;
-      gsap.to(heroRef.current.querySelector('.hero-content'), {
-        x: x * 0.5, y: y * 0.5, duration: 1, ease: 'power2.out',
-      });
-      gsap.to(heroRef.current.querySelectorAll('.hero-orb, .hero-orb-2, .hero-orb-3'), {
-        x: x * 1.5, y: y * 1.5, duration: 1.5, ease: 'power2.out',
-      });
-    };
+      const handleMouse = (e) => {
+        const { clientX, clientY } = e;
+        const x = (clientX / window.innerWidth - 0.5) * 20;
+        const y = (clientY / window.innerHeight - 0.5) * 20;
+        gsap.to(heroRef.current.querySelector('.hero-content'), {
+          x: x * 0.5, y: y * 0.5, duration: 1, ease: 'power2.out',
+        });
+        gsap.to(heroRef.current.querySelectorAll('.hero-orb, .hero-orb-2, .hero-orb-3'), {
+          x: x * 1.5, y: y * 1.5, duration: 1.5, ease: 'power2.out',
+        });
+      };
 
-    if (!isTouch) {
       window.addEventListener('mousemove', handleMouse);
+      return () => {
+        tl.kill();
+        window.removeEventListener('mousemove', handleMouse);
+      };
     }
 
-    return () => {
-      tl.kill();
-      if (!isTouch) window.removeEventListener('mousemove', handleMouse);
-    };
+    return () => tl.kill();
   }, []);
 
   const formattedRole = hero.role

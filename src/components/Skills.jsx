@@ -11,6 +11,7 @@ export default function Skills() {
   const skills = t.skills;
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 900;
     const ctx = gsap.context(() => {
       const tag = sectionRef.current.querySelector('.section-tag');
       const title = sectionRef.current.querySelector('.section-title');
@@ -18,37 +19,38 @@ export default function Skills() {
 
       ScrollTrigger.create({
         trigger: sectionRef.current,
-        start: 'top 80%',
+        start: 'top 85%',
         onEnter: () => {
-          gsap.fromTo(tag, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 });
-          gsap.fromTo(title, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, delay: 0.15 });
-          gsap.fromTo(desc, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, delay: 0.3 });
+          gsap.fromTo(tag, { y: isMobile ? 15 : 20, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.35 : 0.5, ease: 'power2.out' });
+          gsap.fromTo(title, { y: isMobile ? 20 : 40, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.4 : 0.6, delay: 0.1, ease: 'power2.out' });
+          gsap.fromTo(desc, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.35 : 0.5, delay: isMobile ? 0.15 : 0.25, ease: 'power2.out' });
         },
         once: true,
       });
 
       ScrollTrigger.create({
         trigger: sectionRef.current.querySelector('.skills-grid'),
-        start: 'top 75%',
+        start: 'top 80%',
         onEnter: () => {
           gsap.fromTo(
             cardsRef.current,
-            { y: 40, opacity: 0, scale: 0.95 },
-            {
-              y: 0, opacity: 1, scale: 1,
-              duration: 0.6,
-              stagger: 0.08,
-              ease: 'back.out(1.4)',
-            }
+            isMobile
+              ? { y: 20, opacity: 0 }
+              : { y: 50, opacity: 0, scale: 0.9, rotateX: 10 },
+            isMobile
+              ? { y: 0, opacity: 1, duration: 0.35, stagger: 0.06, ease: 'power2.out' }
+              : { y: 0, opacity: 1, scale: 1, rotateX: 0, duration: 0.6, stagger: 0.08, ease: 'back.out(1.4)' }
           );
 
-          cardsRef.current.forEach((card) => {
-            if (!card) return;
-            const items = card.querySelectorAll('.skill-list li');
-            gsap.fromTo(items, { opacity: 0, x: -10 }, {
-              opacity: 1, x: 0, duration: 0.3, stagger: 0.03, delay: 0.4, ease: 'power2.out',
+          if (!isMobile) {
+            cardsRef.current.forEach((card) => {
+              if (!card) return;
+              const items = card.querySelectorAll('.skill-list li');
+              gsap.fromTo(items, { opacity: 0, x: -15 }, {
+                opacity: 1, x: 0, duration: 0.3, stagger: 0.03, delay: 0.5, ease: 'power2.out',
+              });
             });
-          });
+          }
         },
         once: true,
       });

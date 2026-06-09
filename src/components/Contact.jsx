@@ -17,26 +17,31 @@ export default function Contact() {
   const contact = t.contact;
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 900;
     const ctx = gsap.context(() => {
       const tag = sectionRef.current.querySelector('.section-tag');
       const title = sectionRef.current.querySelector('.contact-title');
 
       ScrollTrigger.create({
         trigger: sectionRef.current,
-        start: 'top 80%',
+        start: 'top 85%',
         onEnter: () => {
-          gsap.fromTo(tag, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 });
-          gsap.fromTo(title, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, delay: 0.2 });
+          gsap.fromTo(tag, { y: isMobile ? 15 : 20, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.35 : 0.5, ease: 'power2.out' });
+          gsap.fromTo(title, { y: isMobile ? 20 : 40, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.4 : 0.7, delay: 0.15, ease: 'power2.out' });
           gsap.fromTo(
             linksRef.current,
-            { y: 30, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, delay: 0.4 }
+            isMobile
+              ? { y: 15, opacity: 0 }
+              : { y: 40, opacity: 0, scale: 0.95 },
+            isMobile
+              ? { y: 0, opacity: 1, duration: 0.35, stagger: 0.06, ease: 'power2.out' }
+              : { y: 0, opacity: 1, scale: 1, duration: 0.6, stagger: 0.1, delay: 0.3, ease: 'back.out(1.4)' }
           );
         },
         once: true,
       });
 
-      if (!window.matchMedia('(pointer: coarse)').matches) {
+      if (!isMobile && !window.matchMedia('(pointer: coarse)').matches) {
         linksRef.current.forEach((link) => {
           if (!link) return;
           link.addEventListener('mousemove', (e) => {

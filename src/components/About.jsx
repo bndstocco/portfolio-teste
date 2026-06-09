@@ -12,6 +12,7 @@ export default function About() {
   const about = t.about;
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 900;
     const ctx = gsap.context(() => {
       const tag = sectionRef.current.querySelector('.section-tag');
       const title = sectionRef.current.querySelector('.section-title');
@@ -19,40 +20,46 @@ export default function About() {
 
       ScrollTrigger.create({
         trigger: sectionRef.current,
-        start: 'top 80%',
+        start: 'top 85%',
         onEnter: () => {
-          gsap.fromTo(tag, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 });
-          gsap.fromTo(title, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, delay: 0.15 });
-          gsap.fromTo(desc, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, delay: 0.3 });
+          gsap.fromTo(tag, { y: isMobile ? 15 : 20, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.35 : 0.5, ease: 'power2.out' });
+          gsap.fromTo(title, { y: isMobile ? 20 : 40, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.4 : 0.6, delay: 0.1, ease: 'power2.out' });
+          gsap.fromTo(desc, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.35 : 0.5, delay: isMobile ? 0.15 : 0.25, ease: 'power2.out' });
         },
         once: true,
       });
 
-      ScrollTrigger.create({
-        trigger: leftRef.current,
-        start: 'top 75%',
-        onEnter: () => {
-          gsap.fromTo(
-            leftRef.current.querySelectorAll('p, .about-tags'),
-            { y: 30, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.6, stagger: 0.12 }
-          );
-        },
-        once: true,
-      });
+      const leftEls = leftRef.current?.querySelectorAll('p, .about-tags');
+      if (leftEls?.length) {
+        ScrollTrigger.create({
+          trigger: leftRef.current,
+          start: 'top 80%',
+          onEnter: () => {
+            gsap.fromTo(leftEls, { y: isMobile ? 15 : 30, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.35 : 0.6, stagger: isMobile ? 0.06 : 0.12, ease: 'power2.out' });
+          },
+          once: true,
+        });
+      }
 
-      ScrollTrigger.create({
-        trigger: rightRef.current,
-        start: 'top 75%',
-        onEnter: () => {
-          gsap.fromTo(
-            rightRef.current.querySelectorAll('.cert-item'),
-            { x: -20, opacity: 0, scale: 0.95 },
-            { x: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.08, ease: 'back.out(1.2)' }
-          );
-        },
-        once: true,
-      });
+      const certItems = rightRef.current?.querySelectorAll('.cert-item');
+      if (certItems?.length) {
+        ScrollTrigger.create({
+          trigger: rightRef.current,
+          start: 'top 80%',
+          onEnter: () => {
+            gsap.fromTo(
+              certItems,
+              isMobile
+                ? { y: 15, opacity: 0 }
+                : { x: -20, opacity: 0, scale: 0.95, rotateY: -5 },
+              isMobile
+                ? { y: 0, opacity: 1, duration: 0.35, stagger: 0.06, ease: 'power2.out' }
+                : { x: 0, opacity: 1, scale: 1, rotateY: 0, duration: 0.5, stagger: 0.08, ease: 'back.out(1.2)' }
+            );
+          },
+          once: true,
+        });
+      }
     }, sectionRef);
 
     return () => ctx.revert();

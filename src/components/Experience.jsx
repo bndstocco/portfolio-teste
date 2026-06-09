@@ -13,6 +13,7 @@ export default function Experience() {
   const exp = t.experience;
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 900;
     const ctx = gsap.context(() => {
       const tag = sectionRef.current.querySelector('.section-tag');
       const title = sectionRef.current.querySelector('.section-title');
@@ -20,40 +21,51 @@ export default function Experience() {
 
       ScrollTrigger.create({
         trigger: sectionRef.current,
-        start: 'top 80%',
+        start: 'top 85%',
         onEnter: () => {
-          gsap.fromTo(tag, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5 });
-          gsap.fromTo(title, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, delay: 0.15 });
-          gsap.fromTo(desc, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, delay: 0.3 });
+          gsap.fromTo(tag, { y: isMobile ? 15 : 20, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.35 : 0.5, ease: 'power2.out' });
+          gsap.fromTo(title, { y: isMobile ? 20 : 40, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.4 : 0.6, delay: 0.1, ease: 'power2.out' });
+          gsap.fromTo(desc, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.35 : 0.5, delay: isMobile ? 0.15 : 0.25, ease: 'power2.out' });
         },
         once: true,
       });
 
-      const progress = timelineRef.current.querySelector('.timeline-progress');
-      ScrollTrigger.create({
-        trigger: timelineRef.current,
-        start: 'top 70%',
-        end: 'bottom 30%',
-        onEnter: () => {
-          gsap.to(progress, { height: '100%', duration: 1.5, ease: 'power3.out' });
-          gsap.fromTo(
-            itemsRef.current,
-            { x: -30, opacity: 0 },
-            { x: 0, opacity: 1, duration: 0.7, stagger: 0.2, delay: 0.3, ease: 'power3.out' }
-          );
-        },
-        once: true,
-      });
+      const progress = timelineRef.current?.querySelector('.timeline-progress');
+      if (progress) {
+        ScrollTrigger.create({
+          trigger: timelineRef.current,
+          start: 'top 75%',
+          end: 'bottom 30%',
+          onEnter: () => {
+            gsap.to(progress, { height: '100%', duration: isMobile ? 0.8 : 1.5, ease: 'power3.out' });
+            gsap.fromTo(
+              itemsRef.current,
+              isMobile
+                ? { y: 20, opacity: 0 }
+                : { x: -40, opacity: 0, scale: 0.95 },
+              isMobile
+                ? { y: 0, opacity: 1, duration: 0.4, stagger: 0.1, ease: 'power2.out' }
+                : { x: 0, opacity: 1, scale: 1, duration: 0.7, stagger: 0.2, delay: 0.3, ease: 'power3.out' }
+            );
+          },
+          once: true,
+        });
+      }
 
       if (sidebarRef.current) {
         ScrollTrigger.create({
           trigger: sidebarRef.current,
-          start: 'top 75%',
+          start: 'top 80%',
           onEnter: () => {
+            const cards = sidebarRef.current.querySelectorAll('.exp-sidebar-card');
             gsap.fromTo(
-              sidebarRef.current.querySelectorAll('.exp-sidebar-card'),
-              { y: 30, opacity: 0 },
-              { y: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: 'power3.out' }
+              cards,
+              isMobile
+                ? { y: 15, opacity: 0 }
+                : { y: 40, opacity: 0, scale: 0.9, rotateX: 10 },
+              isMobile
+                ? { y: 0, opacity: 1, duration: 0.35, stagger: 0.08, ease: 'power2.out' }
+                : { y: 0, opacity: 1, scale: 1, rotateX: 0, duration: 0.6, stagger: 0.15, ease: 'back.out(1.3)' }
             );
           },
           once: true,

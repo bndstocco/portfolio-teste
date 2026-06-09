@@ -1367,8 +1367,9 @@ footer span { color: var(--blue); }
   .nav-links { display: none; }
   .nav-controls { gap: 4px; }
   body::before { display: none; }
-  .glass-card { backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .glass-card { backdrop-filter: none; -webkit-backdrop-filter: none; border-color: transparent; }
   .stat-item { backdrop-filter: none; }
+  .theme-toggle { border-color: transparent; }
   section { padding: 80px 24px; }
   #hero { padding: 80px 24px 0; flex-direction: column; align-items: flex-start; justify-content: center; gap: 48px; }
   .hero-grid-bg { display: none; }
@@ -1380,12 +1381,15 @@ footer span { color: var(--blue); }
   .about-grid { grid-template-columns: 1fr; gap: 48px; }
   .about-orb { display: none; }
   .skills-grid { grid-template-columns: 1fr; }
+  .skill-card { border-color: transparent; }
   .cert-grid { grid-template-columns: repeat(2, 1fr); }
+  .cert-card { border-color: transparent; }
   footer { padding: 24px; }
   .divider { margin: 0 24px; width: calc(100% - 48px); }
   .stack-marquee-wrapper { margin: 0 -24px; }
   .experience-layout { grid-template-columns: 1fr; gap: 48px; }
   .exp-sidebar { position: static; }
+  .exp-sidebar-card { border-color: transparent; background: rgba(0, 102, 255, 0.02); }
   .contact-orb { display: none; }
   #contact { padding-bottom: 120px; background: rgba(5, 5, 8, 0.7); }
   .contact-title { margin-bottom: 40px; }
