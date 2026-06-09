@@ -10,10 +10,11 @@ export default function StackMarquee() {
     const el = marqueeRef.current;
     if (!el) return;
 
+    const isMobile = window.innerWidth < 768;
     const width = el.scrollWidth / 2;
     const tween = gsap.to(el, {
       x: -width,
-      duration: 30,
+      duration: isMobile ? 12 : 30,
       repeat: -1,
       ease: 'none',
     });
