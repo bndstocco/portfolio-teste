@@ -1157,7 +1157,7 @@ section { padding: 140px 48px; position: relative; }
 .contact-bg-text {
   position: absolute;
   bottom: -20px;
-  left: -10px;
+  left: 48px;
   font-family: var(--display);
   font-size: clamp(80px, 15vw, 220px);
   font-weight: 700;
@@ -1380,6 +1380,7 @@ footer span { color: var(--blue); }
   .hero-orb, .hero-orb-2, .hero-orb-3 { display: none; }
   .about-grid { grid-template-columns: 1fr; gap: 48px; }
   .about-orb { display: none; }
+  .about-highlight { border-left: none; padding-left: 0; }
   .skills-grid { grid-template-columns: 1fr; }
   .skill-card { border-color: transparent; }
   .cert-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1390,11 +1391,18 @@ footer span { color: var(--blue); }
   .experience-layout { grid-template-columns: 1fr; gap: 48px; }
   .exp-sidebar { position: static; }
   .exp-sidebar-card { border-color: transparent; background: rgba(0, 102, 255, 0.02); }
+  html, body { overflow-x: hidden; position: relative; }
+  .bg-blob-svg { display: none; }
+  .bg-dot { animation: none; opacity: 0.08; }
+  .bg-line { animation: none; opacity: 0.3; }
+  .bg-glow { filter: blur(40px); }
+  .bg-glow-1, .bg-glow-2, .bg-glow-3, .bg-glow-4 { animation: none; }
+  .bg-grid { animation: none; opacity: 0.3; background-size: 40px 40px; }
   .contact-orb { display: none; }
   #contact { padding-bottom: 120px; background: rgba(5, 5, 8, 0.7); }
   .contact-title { margin-bottom: 40px; }
   .contact-link { padding: 20px 16px; }
-  .contact-bg-text { margin-bottom: 20px; }
+  .contact-bg-text { left: 24px; margin-bottom: 20px; }
 }
 
 @media (max-width: 600px) {
