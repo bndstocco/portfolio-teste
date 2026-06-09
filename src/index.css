@@ -275,6 +275,8 @@ body::before {
 [data-theme="light"] .stack-marquee-wrapper::before { background: linear-gradient(90deg, rgba(245,245,250,0.85), transparent); }
 [data-theme="light"] .stack-marquee-wrapper::after { background: linear-gradient(-90deg, rgba(245,245,250,0.85), transparent); }
 [data-theme="light"] #contact { background: rgba(245, 245, 250, 0.7); }
+[data-theme="light"] .cert-card { background: rgba(0, 0, 0, 0.03); border-color: rgba(0, 0, 0, 0.06); }
+[data-theme="light"] .cert-card:hover { background: rgba(0, 0, 0, 0.06); border-color: rgba(0, 102, 255, 0.15); }
 
 #about, #skills, #experience, #certifications, #stack, #contact { transition: background .3s; }
 
@@ -820,7 +822,7 @@ section { padding: 140px 48px; position: relative; }
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
+  gap: 16px;
 }
 .skill-card {
   background: var(--surface);
@@ -1114,19 +1116,21 @@ section { padding: 140px 48px; position: relative; }
 .cert-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2px;
+  gap: 16px;
 }
 .cert-card {
-  background: var(--black);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   padding: 32px;
   position: relative;
   overflow: hidden;
   border-radius: var(--radius-sm);
-  border: 1px solid transparent;
+  border: 1px solid rgba(255, 255, 255, 0.06);
   transition: background .2s, border-color .2s, transform .2s;
   cursor: default;
 }
-.cert-card:hover { background: var(--surface2); border-color: rgba(0, 102, 255, 0.1); transform: translateY(-2px); }
+.cert-card:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(0, 102, 255, 0.2); transform: translateY(-2px); }
 .cert-card::after {
   content: '';
   position: absolute;
