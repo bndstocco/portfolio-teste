@@ -18,11 +18,11 @@ export default function Hero() {
     const tl = gsap.timeline({ defaults: { ease: 'power2.out' } });
 
     if (isMobile) {
-      tl.fromTo(linesRef.current, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.1 })
-        .fromTo(roleRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4 }, '-=0.1')
-        .fromTo(eyebrowRef.current, { opacity: 0 }, { opacity: 1, duration: 0.3 }, '-=0.3')
-        .fromTo(ctaRef.current.children, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, stagger: 0.08 }, '-=0.1')
-        .fromTo(statsRef.current.children, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.35, stagger: 0.06 }, '-=0.2');
+      tl.fromTo(linesRef.current, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, stagger: 0.15 })
+        .fromTo(roleRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, '-=0.2')
+        .fromTo(eyebrowRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5 }, '-=0.4')
+        .fromTo(ctaRef.current.children, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.1 }, '-=0.2')
+        .fromTo(statsRef.current.children, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.1 }, '-=0.3');
     } else {
       tl.fromTo(
         linesRef.current,

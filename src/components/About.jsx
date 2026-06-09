@@ -22,9 +22,9 @@ export default function About() {
         trigger: sectionRef.current,
         start: 'top 85%',
         onEnter: () => {
-          gsap.fromTo(tag, { y: isMobile ? 15 : 20, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.35 : 0.5, ease: 'power2.out' });
-          gsap.fromTo(title, { y: isMobile ? 20 : 40, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.4 : 0.6, delay: 0.1, ease: 'power2.out' });
-          gsap.fromTo(desc, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.35 : 0.5, delay: isMobile ? 0.15 : 0.25, ease: 'power2.out' });
+          gsap.fromTo(tag, { y: isMobile ? 15 : 20, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.5 : 0.5, ease: 'power2.out' });
+          gsap.fromTo(title, { y: isMobile ? 20 : 40, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.6 : 0.6, delay: 0.15, ease: 'power2.out' });
+          gsap.fromTo(desc, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.5 : 0.5, delay: isMobile ? 0.2 : 0.25, ease: 'power2.out' });
         },
         once: true,
       });
@@ -35,7 +35,7 @@ export default function About() {
           trigger: leftRef.current,
           start: 'top 80%',
           onEnter: () => {
-            gsap.fromTo(leftEls, { y: isMobile ? 15 : 30, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.35 : 0.6, stagger: isMobile ? 0.06 : 0.12, ease: 'power2.out' });
+            gsap.fromTo(leftEls, { y: isMobile ? 15 : 30, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.5 : 0.6, stagger: isMobile ? 0.1 : 0.12, ease: 'power2.out' });
           },
           once: true,
         });
@@ -53,7 +53,7 @@ export default function About() {
                 ? { y: 15, opacity: 0 }
                 : { x: -20, opacity: 0, scale: 0.95, rotateY: -5 },
               isMobile
-                ? { y: 0, opacity: 1, duration: 0.35, stagger: 0.06, ease: 'power2.out' }
+                ? { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'power2.out' }
                 : { x: 0, opacity: 1, scale: 1, rotateY: 0, duration: 0.5, stagger: 0.08, ease: 'back.out(1.2)' }
             );
           },

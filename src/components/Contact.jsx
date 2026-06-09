@@ -26,15 +26,15 @@ export default function Contact() {
         trigger: sectionRef.current,
         start: 'top 85%',
         onEnter: () => {
-          gsap.fromTo(tag, { y: isMobile ? 15 : 20, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.35 : 0.5, ease: 'power2.out' });
-          gsap.fromTo(title, { y: isMobile ? 20 : 40, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.4 : 0.7, delay: 0.15, ease: 'power2.out' });
+          gsap.fromTo(tag, { y: isMobile ? 15 : 20, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.5 : 0.5, ease: 'power2.out' });
+          gsap.fromTo(title, { y: isMobile ? 20 : 40, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.6 : 0.7, delay: 0.15, ease: 'power2.out' });
           gsap.fromTo(
             linksRef.current,
             isMobile
               ? { y: 15, opacity: 0 }
               : { y: 40, opacity: 0, scale: 0.95 },
-            isMobile
-              ? { y: 0, opacity: 1, duration: 0.35, stagger: 0.06, ease: 'power2.out' }
+              isMobile
+                ? { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: 'power2.out' }
               : { y: 0, opacity: 1, scale: 1, duration: 0.6, stagger: 0.1, delay: 0.3, ease: 'back.out(1.4)' }
           );
         },

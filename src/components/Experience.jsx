@@ -23,9 +23,9 @@ export default function Experience() {
         trigger: sectionRef.current,
         start: 'top 85%',
         onEnter: () => {
-          gsap.fromTo(tag, { y: isMobile ? 15 : 20, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.35 : 0.5, ease: 'power2.out' });
-          gsap.fromTo(title, { y: isMobile ? 20 : 40, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.4 : 0.6, delay: 0.1, ease: 'power2.out' });
-          gsap.fromTo(desc, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.35 : 0.5, delay: isMobile ? 0.15 : 0.25, ease: 'power2.out' });
+          gsap.fromTo(tag, { y: isMobile ? 15 : 20, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.5 : 0.5, ease: 'power2.out' });
+          gsap.fromTo(title, { y: isMobile ? 20 : 40, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.6 : 0.6, delay: 0.15, ease: 'power2.out' });
+          gsap.fromTo(desc, { y: 15, opacity: 0 }, { y: 0, opacity: 1, duration: isMobile ? 0.5 : 0.5, delay: isMobile ? 0.2 : 0.25, ease: 'power2.out' });
         },
         once: true,
       });
@@ -44,7 +44,7 @@ export default function Experience() {
                 ? { y: 20, opacity: 0 }
                 : { x: -40, opacity: 0, scale: 0.95 },
               isMobile
-                ? { y: 0, opacity: 1, duration: 0.4, stagger: 0.1, ease: 'power2.out' }
+                ? { y: 0, opacity: 1, duration: 0.6, stagger: 0.15, ease: 'power2.out' }
                 : { x: 0, opacity: 1, scale: 1, duration: 0.7, stagger: 0.2, delay: 0.3, ease: 'power3.out' }
             );
           },
@@ -64,7 +64,7 @@ export default function Experience() {
                 ? { y: 15, opacity: 0 }
                 : { y: 40, opacity: 0, scale: 0.9, rotateX: 10 },
               isMobile
-                ? { y: 0, opacity: 1, duration: 0.35, stagger: 0.08, ease: 'power2.out' }
+                ? { y: 0, opacity: 1, duration: 0.5, stagger: 0.12, ease: 'power2.out' }
                 : { y: 0, opacity: 1, scale: 1, rotateX: 0, duration: 0.6, stagger: 0.15, ease: 'back.out(1.3)' }
             );
           },
