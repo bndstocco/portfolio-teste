@@ -4,8 +4,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CONTACT } from '../data/portfolio.jsx';
 import { CONTACT_ICONS, ArrowUpRight } from '../data/icons.jsx';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function Contact() {
   const sectionRef = useRef(null);
   const linksRef = useRef([]);
@@ -30,18 +28,20 @@ export default function Contact() {
         once: true,
       });
 
-      linksRef.current.forEach((link) => {
-        if (!link) return;
-        link.addEventListener('mousemove', (e) => {
-          const rect = link.getBoundingClientRect();
-          const x = e.clientX - rect.left - rect.width / 2;
-          const y = e.clientY - rect.top - rect.height / 2;
-          gsap.to(link, { x: x * 0.1, y: y * 0.1, duration: 0.3, ease: 'power2.out' });
+      if (!window.matchMedia('(pointer: coarse)').matches) {
+        linksRef.current.forEach((link) => {
+          if (!link) return;
+          link.addEventListener('mousemove', (e) => {
+            const rect = link.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            gsap.to(link, { x: x * 0.1, y: y * 0.1, duration: 0.3, ease: 'power2.out' });
+          });
+          link.addEventListener('mouseleave', () => {
+            gsap.to(link, { x: 0, y: 0, duration: 0.4, ease: 'power2.out' });
+          });
         });
-        link.addEventListener('mouseleave', () => {
-          gsap.to(link, { x: 0, y: 0, duration: 0.4, ease: 'power2.out' });
-        });
-      });
+      }
     }, sectionRef);
 
     return () => ctx.revert();

@@ -4,8 +4,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { EXPERIENCE_SECTION, EXPERIENCES } from '../data/portfolio.jsx';
 import { ZapIcon } from '../data/icons.jsx';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function Experience() {
   const sectionRef = useRef(null);
   const timelineRef = useRef(null);

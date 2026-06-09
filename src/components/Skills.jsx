@@ -4,8 +4,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SKILLS_SECTION, SKILLS } from '../data/portfolio.jsx';
 import { SKILL_ICONS } from '../data/icons.jsx';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function Skills() {
   const sectionRef = useRef(null);
   const cardsRef = useRef([]);

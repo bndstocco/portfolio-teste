@@ -4,8 +4,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { CERTIFICATIONS_SECTION, CERTIFICATIONS } from '../data/portfolio.jsx';
 import { CERT_ICONS } from '../data/icons.jsx';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function Certifications() {
   const sectionRef = useRef(null);
   const cardsRef = useRef([]);

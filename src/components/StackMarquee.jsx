@@ -11,14 +11,25 @@ export default function StackMarquee() {
     if (!el) return;
 
     const width = el.scrollWidth / 2;
-    gsap.to(el, {
+    const tween = gsap.to(el, {
       x: -width,
       duration: 30,
       repeat: -1,
       ease: 'none',
     });
 
-    return () => gsap.killTweensOf(el);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        entry.isIntersecting ? tween.play() : tween.pause();
+      },
+      { threshold: 0 }
+    );
+    observer.observe(el);
+
+    return () => {
+      gsap.killTweensOf(el);
+      observer.disconnect();
+    };
   }, []);
 
   return (

@@ -1,10 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { HERO } from '../data/portfolio.jsx';
 import { HexIcon } from '../data/icons.jsx';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
   const heroRef = useRef(null);
@@ -47,28 +44,31 @@ export default function Hero() {
       '-=0.2'
     );
 
-    const particles = heroRef.current.querySelector('.hero-particles');
-    if (particles) {
-      for (let i = 0; i < 40; i++) {
-        const dot = document.createElement('div');
-        dot.className = 'hero-particle';
-        dot.style.left = Math.random() * 100 + '%';
-        dot.style.top = Math.random() * 100 + '%';
-        const size = 2 + Math.random() * 3;
-        dot.style.width = size + 'px';
-        dot.style.height = size + 'px';
-        dot.style.opacity = 0.1 + Math.random() * 0.3;
-        particles.appendChild(dot);
+    const isTouch = window.matchMedia('(pointer: coarse)').matches;
+    if (!isTouch) {
+      const particles = heroRef.current.querySelector('.hero-particles');
+      if (particles) {
+        for (let i = 0; i < 40; i++) {
+          const dot = document.createElement('div');
+          dot.className = 'hero-particle';
+          dot.style.left = Math.random() * 100 + '%';
+          dot.style.top = Math.random() * 100 + '%';
+          const size = 2 + Math.random() * 3;
+          dot.style.width = size + 'px';
+          dot.style.height = size + 'px';
+          dot.style.opacity = 0.1 + Math.random() * 0.3;
+          particles.appendChild(dot);
 
-        gsap.to(dot, {
-          y: -(50 + Math.random() * 150),
-          x: (Math.random() - 0.5) * 80,
-          opacity: 0,
-          duration: 4 + Math.random() * 8,
-          repeat: -1,
-          delay: Math.random() * 4,
-          ease: 'power1.out',
-        });
+          gsap.to(dot, {
+            y: -(50 + Math.random() * 150),
+            x: (Math.random() - 0.5) * 80,
+            opacity: 0,
+            duration: 4 + Math.random() * 8,
+            repeat: -1,
+            delay: Math.random() * 4,
+            ease: 'power1.out',
+          });
+        }
       }
     }
 

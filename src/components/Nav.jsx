@@ -1,10 +1,7 @@
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { NAV_LINKS } from '../data/portfolio.jsx';
 import { HexIcon } from '../data/icons.jsx';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Nav() {
   const progressRef = useRef(null);
@@ -32,16 +29,23 @@ export default function Nav() {
 
     const links = document.querySelectorAll('.nav-links a');
     const sections = document.querySelectorAll('section[id]');
+    const linkText = 'var(--text)';
 
+    let ticking = false;
     const onScroll = () => {
-      let current = '';
-      sections.forEach((s) => {
-        if (window.scrollY >= s.offsetTop - 200) current = s.id;
-      });
-      links.forEach((a) => {
-        const isActive = a.getAttribute('href') === '#' + current;
-        a.style.color = isActive ? 'var(--text)' : '';
-      });
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          let current = '';
+          sections.forEach((s) => {
+            if (window.scrollY >= s.offsetTop - 200) current = s.id;
+          });
+          links.forEach((a) => {
+            a.style.color = a.getAttribute('href') === '#' + current ? linkText : '';
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });

@@ -4,8 +4,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ABOUT } from '../data/portfolio.jsx';
 import { CERT_ICONS } from '../data/icons.jsx';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function About() {
   const sectionRef = useRef(null);
   const leftRef = useRef(null);
