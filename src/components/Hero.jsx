@@ -9,7 +9,7 @@ export default function Hero() {
   const roleRef = useRef(null);
   const ctaRef = useRef(null);
   const statsRef = useRef(null);
-  const scrollRef = useRef(null);
+  const eyebrowRef = useRef(null);
   const { t } = useLanguage();
   const hero = t.hero;
 
@@ -18,32 +18,32 @@ export default function Hero() {
 
     tl.fromTo(
       linesRef.current,
-      { y: '110%', rotateX: 25 },
-      { y: '0%', rotateX: 0, duration: 1, stagger: 0.12 }
+      { y: '120%', rotateX: 35, scale: 0.9 },
+      { y: '0%', rotateX: 0, scale: 1, duration: 1, stagger: 0.15, ease: 'back.out(1.7)' }
     )
     .fromTo(
       roleRef.current,
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8 },
-      '-=0.4'
-    )
-    .fromTo(
-      ctaRef.current.children,
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.6, stagger: 0.15 },
+      { y: 40, opacity: 0, scale: 0.95, filter: 'blur(8px)' },
+      { y: 0, opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.9 },
       '-=0.3'
     )
     .fromTo(
-      statsRef.current.children,
-      { x: 20, opacity: 0 },
-      { x: 0, opacity: 1, duration: 0.6, stagger: 0.1 },
-      '-=0.6'
+      eyebrowRef.current,
+      { x: -20, opacity: 0 },
+      { x: 0, opacity: 1, duration: 0.5 },
+      '-=0.7'
     )
     .fromTo(
-      scrollRef.current,
-      { opacity: 0 },
-      { opacity: 1, duration: 0.5 },
+      ctaRef.current.children,
+      { y: 30, opacity: 0, scale: 0.95 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.12, ease: 'back.out(2)' },
       '-=0.2'
+    )
+    .fromTo(
+      statsRef.current.children,
+      { x: 40, opacity: 0, rotateY: 15 },
+      { x: 0, opacity: 1, rotateY: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out' },
+      '-=0.5'
     );
 
     const isTouch = window.matchMedia('(pointer: coarse)').matches;
@@ -74,7 +74,26 @@ export default function Hero() {
       }
     }
 
-    return () => tl.kill();
+    const handleMouse = (e) => {
+      const { clientX, clientY } = e;
+      const x = (clientX / window.innerWidth - 0.5) * 20;
+      const y = (clientY / window.innerHeight - 0.5) * 20;
+      gsap.to(heroRef.current.querySelector('.hero-content'), {
+        x: x * 0.5, y: y * 0.5, duration: 1, ease: 'power2.out',
+      });
+      gsap.to(heroRef.current.querySelectorAll('.hero-orb, .hero-orb-2, .hero-orb-3'), {
+        x: x * 1.5, y: y * 1.5, duration: 1.5, ease: 'power2.out',
+      });
+    };
+
+    if (!isTouch) {
+      window.addEventListener('mousemove', handleMouse);
+    }
+
+    return () => {
+      tl.kill();
+      if (!isTouch) window.removeEventListener('mousemove', handleMouse);
+    };
   }, []);
 
   const formattedRole = hero.role
@@ -91,17 +110,18 @@ export default function Hero() {
       <div className="hero-number">03</div>
 
       <div className="hero-content">
-        <div className="hero-eyebrow">
+        <div className="hero-eyebrow" ref={eyebrowRef}>
           <HexIcon />
           {hero.eyebrow}
         </div>
 
         <h1 className="hero-name">
-          {hero.name.map((word, i) => (
-            <span key={i} className="line" ref={(el) => (linesRef.current[i] = el)}>
-              {i === 2 ? <span className="accent">{word}</span> : word}
-            </span>
-          ))}
+          <span className="line" ref={(el) => (linesRef.current[0] = el)}>
+            {hero.name[0]} {hero.name[1]}
+          </span>
+          <span className="line" ref={(el) => (linesRef.current[1] = el)}>
+            <span className="accent">{hero.name[2]}</span>
+          </span>
         </h1>
 
         <p className="hero-role" ref={roleRef} dangerouslySetInnerHTML={{ __html: formattedRole }} />
@@ -125,7 +145,6 @@ export default function Hero() {
         ))}
       </div>
 
-      <div className="hero-scroll" ref={scrollRef}>{hero.scroll}</div>
     </section>
   );
 }
