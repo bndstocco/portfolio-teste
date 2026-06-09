@@ -1,12 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { CERTIFICATIONS_SECTION, CERTIFICATIONS } from '../data/portfolio.jsx';
+import { useLanguage } from '../contexts/LanguageContext';
 import { CERT_ICONS } from '../data/icons.jsx';
 
 export default function Certifications() {
   const sectionRef = useRef(null);
   const cardsRef = useRef([]);
+  const { t } = useLanguage();
+  const cert = t.certifications;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -44,38 +46,32 @@ export default function Certifications() {
 
   const getIcon = (iconName) => {
     const Icon = CERT_ICONS[iconName];
-    if (Icon) return <Icon />;
-    const fallbacks = {
-      analytics: CERT_ICONS.analytics,
-      ecommerce: CERT_ICONS.ecommerce,
-    };
-    const Fallback = fallbacks[iconName];
-    return Fallback ? <Fallback /> : null;
+    return Icon ? <Icon /> : null;
   };
 
   return (
     <section id="certifications" ref={sectionRef}>
       <div className="section-header">
         <div>
-          <div className="section-tag">{CERTIFICATIONS_SECTION.tag}</div>
-          <h2 className="section-title">{CERTIFICATIONS_SECTION.title}</h2>
+          <div className="section-tag">{cert.tag}</div>
+          <h2 className="section-title">{cert.title}</h2>
         </div>
-        <p className="section-desc">{CERTIFICATIONS_SECTION.desc}</p>
+        <p className="section-desc">{cert.desc}</p>
       </div>
 
       <div className="cert-grid">
-        {CERTIFICATIONS.map((cert, i) => (
+        {cert.items.map((item, i) => (
           <div
             className="cert-card"
             key={i}
             ref={(el) => (cardsRef.current[i] = el)}
           >
             <div className="cert-card-icon">
-              {getIcon(cert.icon)}
+              {getIcon(item.icon)}
             </div>
-            <div className="cert-card-label">{cert.label}</div>
-            <div className="cert-card-name">{cert.name}</div>
-            <div className="cert-card-meta">{cert.meta}</div>
+            <div className="cert-card-label">{item.label}</div>
+            <div className="cert-card-name">{item.name}</div>
+            <div className="cert-card-meta">{item.meta}</div>
           </div>
         ))}
       </div>

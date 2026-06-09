@@ -1,12 +1,20 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { CONTACT } from '../data/portfolio.jsx';
+import { useLanguage } from '../contexts/LanguageContext';
 import { CONTACT_ICONS, ArrowUpRight } from '../data/icons.jsx';
+
+const contactLinks = [
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/bndstocco/', icon: 'linkedin', handle: '@bndstocco' },
+  { label: 'E-mail', href: 'mailto:bernardostoccobnd@gmail.com', icon: 'email', handle: 'bernardostoccobnd@gmail.com' },
+  { label: 'GitHub', href: 'https://github.com/bndstocco', icon: 'github', handle: '@bndstocco' },
+];
 
 export default function Contact() {
   const sectionRef = useRef(null);
   const linksRef = useRef([]);
+  const { t } = useLanguage();
+  const contact = t.contact;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -57,10 +65,10 @@ export default function Contact() {
       <div className="contact-bg-text">Contato</div>
       <div className="contact-orb" />
       <div className="contact-inner">
-        <div className="section-tag">{CONTACT.tag}</div>
-        <h2 className="contact-title">{CONTACT.title}<span>.</span></h2>
+        <div className="section-tag">{contact.tag}</div>
+        <h2 className="contact-title">{contact.title}<span>.</span></h2>
         <div className="contact-links">
-          {CONTACT.links.map((link, i) => (
+          {contactLinks.map((link, i) => (
             <a
               key={link.label}
               href={link.href}

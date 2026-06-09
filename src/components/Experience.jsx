@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { EXPERIENCE_SECTION, EXPERIENCES } from '../data/portfolio.jsx';
+import { useLanguage } from '../contexts/LanguageContext';
 import { ZapIcon } from '../data/icons.jsx';
 
 export default function Experience() {
@@ -9,6 +9,8 @@ export default function Experience() {
   const timelineRef = useRef(null);
   const itemsRef = useRef([]);
   const sidebarRef = useRef(null);
+  const { t } = useLanguage();
+  const exp = t.experience;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -62,46 +64,44 @@ export default function Experience() {
     return () => ctx.revert();
   }, []);
 
-  const totalYears = '3';
-
-  const allSkills = [...new Set(EXPERIENCES.flatMap((e) => e.skills))];
+  const allSkills = [...new Set(exp.items.flatMap((e) => e.skills))];
 
   return (
     <section id="experience" ref={sectionRef}>
       <div className="section-header">
         <div>
-          <div className="section-tag">{EXPERIENCE_SECTION.tag}</div>
-          <h2 className="section-title">{EXPERIENCE_SECTION.title}</h2>
+          <div className="section-tag">{exp.tag}</div>
+          <h2 className="section-title">{exp.title}</h2>
         </div>
-        <p className="section-desc">{EXPERIENCE_SECTION.desc}</p>
+        <p className="section-desc">{exp.desc}</p>
       </div>
 
       <div className="experience-layout">
         <div className="timeline" ref={timelineRef}>
           <div className="timeline-progress" />
 
-          {EXPERIENCES.map((exp, i) => (
+          {exp.items.map((item, i) => (
             <div
               className="timeline-item"
-              key={exp.id}
+              key={i}
               ref={(el) => (itemsRef.current[i] = el)}
             >
               <div className="timeline-dot" />
               <div className="timeline-meta">
-                <span className="timeline-period">{exp.period}</span>
-                <span className="timeline-type">{exp.type}</span>
+                <span className="timeline-period">{item.period}</span>
+                <span className="timeline-type">{item.type}</span>
               </div>
               <div className="timeline-company">
-                <span className="gradient-text">{exp.company}</span>
+                <span className="gradient-text">{item.company}</span>
               </div>
-              <div className="timeline-position">{exp.position}</div>
+              <div className="timeline-position">{item.position}</div>
               <div className="timeline-body">
-                {exp.bullets.map((b, j) => (
+                {item.bullets.map((b, j) => (
                   <div className="timeline-item-bullet" key={j}>{b}</div>
                 ))}
               </div>
               <div className="timeline-skills">
-                {exp.skills.map((s) => (
+                {item.skills.map((s) => (
                   <span className="skill-pill" key={s}>{s}</span>
                 ))}
               </div>
@@ -112,29 +112,29 @@ export default function Experience() {
         <div className="exp-sidebar" ref={sidebarRef}>
           <div className="exp-sidebar-card">
             <div className="exp-sidebar-label">
-              <ZapIcon /> Total
+              <ZapIcon /> {exp.totalLabel}
             </div>
             <div className="exp-sidebar-value">
-              {totalYears} <span>anos</span>
+              3 <span>+</span>
             </div>
             <div className="exp-sidebar-sub">
-              de experiência em desenvolvimento web
+              {exp.totalSub}
             </div>
           </div>
           <div className="exp-sidebar-card">
             <div className="exp-sidebar-label">
-              <ZapIcon /> Empresas
+              <ZapIcon /> {exp.companies}
             </div>
             <div className="exp-sidebar-value">
-              {EXPERIENCES.length} <span>+</span>
+              {exp.items.length} <span>+</span>
             </div>
             <div className="exp-sidebar-sub">
-              Share Media · Arara Resultados
+              {exp.items.map(i => i.company).join(' · ')}
             </div>
           </div>
           <div className="exp-sidebar-card">
             <div className="exp-sidebar-label">
-              <ZapIcon /> Stack principal
+              <ZapIcon /> {exp.mainStack}
             </div>
             <div className="exp-sidebar-sub" style={{ marginTop: 0 }}>
               {allSkills.slice(0, 6).join(' · ')}

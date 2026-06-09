@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { HERO } from '../data/portfolio.jsx';
+import { useLanguage } from '../contexts/LanguageContext';
 import { HexIcon } from '../data/icons.jsx';
 
 export default function Hero() {
@@ -10,6 +10,8 @@ export default function Hero() {
   const ctaRef = useRef(null);
   const statsRef = useRef(null);
   const scrollRef = useRef(null);
+  const { t } = useLanguage();
+  const hero = t.hero;
 
   useEffect(() => {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
@@ -75,6 +77,10 @@ export default function Hero() {
     return () => tl.kill();
   }, []);
 
+  const formattedRole = hero.role
+    .replace(hero.roleAccent[0], `<strong>${hero.roleAccent[0]}</strong>`)
+    .replace(hero.roleAccent[1], `<strong>${hero.roleAccent[1]}</strong>`);
+
   return (
     <section id="hero" ref={heroRef}>
       <div className="hero-grid-bg" />
@@ -87,31 +93,31 @@ export default function Hero() {
       <div className="hero-content">
         <div className="hero-eyebrow">
           <HexIcon />
-          {HERO.eyebrow}
+          {hero.eyebrow}
         </div>
 
         <h1 className="hero-name">
-          {HERO.name.map((word, i) => (
+          {hero.name.map((word, i) => (
             <span key={i} className="line" ref={(el) => (linesRef.current[i] = el)}>
               {i === 2 ? <span className="accent">{word}</span> : word}
             </span>
           ))}
         </h1>
 
-        <p className="hero-role" ref={roleRef}>{HERO.role}</p>
+        <p className="hero-role" ref={roleRef} dangerouslySetInnerHTML={{ __html: formattedRole }} />
 
         <div className="hero-cta" ref={ctaRef}>
           <a href="#experience" className="btn-primary" data-hover>
-            Ver experiência &rarr;
+            {hero.cta1} &rarr;
           </a>
           <a href="#contact" className="btn-secondary" data-hover>
-            Entrar em contato
+            {hero.cta2}
           </a>
         </div>
       </div>
 
       <div className="hero-stats" ref={statsRef}>
-        {HERO.stats.map((stat, i) => (
+        {hero.stats.map((stat, i) => (
           <div className="stat-item" key={i}>
             <div className="stat-num">{stat.num}<span>{stat.suffix}</span></div>
             <div className="stat-label">{stat.label}</div>
@@ -119,7 +125,7 @@ export default function Hero() {
         ))}
       </div>
 
-      <div className="hero-scroll" ref={scrollRef}>Scroll</div>
+      <div className="hero-scroll" ref={scrollRef}>{hero.scroll}</div>
     </section>
   );
 }

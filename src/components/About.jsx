@@ -1,13 +1,15 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ABOUT } from '../data/portfolio.jsx';
+import { useLanguage } from '../contexts/LanguageContext';
 import { CERT_ICONS } from '../data/icons.jsx';
 
 export default function About() {
   const sectionRef = useRef(null);
   const leftRef = useRef(null);
   const rightRef = useRef(null);
+  const { t } = useLanguage();
+  const about = t.about;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -66,20 +68,20 @@ export default function About() {
       <div className="about-orb" />
       <div className="section-header">
         <div>
-          <div className="section-tag">{ABOUT.tag}</div>
-          <h2 className="section-title">{ABOUT.title}</h2>
+          <div className="section-tag">{about.tag}</div>
+          <h2 className="section-title">{about.title}</h2>
         </div>
-        <p className="section-desc">{ABOUT.desc}</p>
+        <p className="section-desc">{about.desc}</p>
       </div>
 
       <div className="about-grid">
         <div className="about-text" ref={leftRef}>
-          <p className="about-highlight">{ABOUT.highlight}</p>
-          {ABOUT.paragraphs.map((p, i) => (
+          <p className="about-highlight">{about.highlight}</p>
+          {about.paragraphs.map((p, i) => (
             <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
           ))}
           <div className="about-tags">
-            {ABOUT.tags.map((tag) => (
+            {about.tags.map((tag) => (
               <span className="tag" key={tag}>{tag}</span>
             ))}
           </div>
@@ -87,9 +89,9 @@ export default function About() {
 
         <div className="about-certs" ref={rightRef}>
           <div className="about-certs-header">
-            Formação & certificados
+            {about.certsHeader}
           </div>
-          {ABOUT.certs.map((cert, i) => (
+          {about.certs.map((cert, i) => (
             <div className="cert-item" key={i}>
               <div className="cert-item-icon">
                 {getIcon(cert.icon)}

@@ -1,10 +1,13 @@
 import { useEffect, useRef } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { NAV_LINKS } from '../data/portfolio.jsx';
+import { useLanguage } from '../contexts/LanguageContext';
 import { HexIcon } from '../data/icons.jsx';
+import LanguageSwitcher from './LanguageSwitcher';
+import ThemeToggle from './ThemeToggle';
 
 export default function Nav() {
   const progressRef = useRef(null);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const nav = document.querySelector('nav');
@@ -64,12 +67,16 @@ export default function Nav() {
           <span>//</span> BSS.dev
         </div>
         <ul className="nav-links">
-          {NAV_LINKS.map((link) => (
+          {t.nav.links.map((link) => (
             <li key={link.href}>
               <a href={link.href}>{link.label}</a>
             </li>
           ))}
         </ul>
+        <div className="nav-controls">
+          <LanguageSwitcher />
+          <ThemeToggle />
+        </div>
       </nav>
     </>
   );

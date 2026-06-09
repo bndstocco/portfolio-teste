@@ -1,12 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { SKILLS_SECTION, SKILLS } from '../data/portfolio.jsx';
+import { useLanguage } from '../contexts/LanguageContext';
 import { SKILL_ICONS } from '../data/icons.jsx';
 
 export default function Skills() {
   const sectionRef = useRef(null);
   const cardsRef = useRef([]);
+  const { t } = useLanguage();
+  const skills = t.skills;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -55,39 +57,39 @@ export default function Skills() {
     return () => ctx.revert();
   }, []);
 
-  const getIcon = (iconName) => {
-    const Icon = SKILL_ICONS[iconName];
-    return Icon ? <Icon /> : null;
-  };
+  const iconKeys = ['backend', 'wordpress', 'frontend', 'integrations', 'performance', 'devops'];
 
   return (
     <section id="skills" ref={sectionRef}>
       <div className="section-header">
         <div>
-          <div className="section-tag">{SKILLS_SECTION.tag}</div>
-          <h2 className="section-title">{SKILLS_SECTION.title}</h2>
+          <div className="section-tag">{skills.tag}</div>
+          <h2 className="section-title">{skills.title}</h2>
         </div>
-        <p className="section-desc">{SKILLS_SECTION.desc}</p>
+        <p className="section-desc">{skills.desc}</p>
       </div>
 
       <div className="skills-grid">
-        {SKILLS.map((skill, i) => (
-          <div
-            className="skill-card"
-            key={skill.id}
-            ref={(el) => (cardsRef.current[i] = el)}
-          >
-            <div className="skill-card-icon">
-              {getIcon(skill.icon)}
+        {skills.cards.map((card, i) => {
+          const Icon = SKILL_ICONS[iconKeys[i]];
+          return (
+            <div
+              className="skill-card"
+              key={i}
+              ref={(el) => (cardsRef.current[i] = el)}
+            >
+              <div className="skill-card-icon">
+                {Icon ? <Icon /> : null}
+              </div>
+              <div className="skill-card-title">{card.title}</div>
+              <ul className="skill-list">
+                {card.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
             </div>
-            <div className="skill-card-title">{skill.title}</div>
-            <ul className="skill-list">
-              {skill.items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );

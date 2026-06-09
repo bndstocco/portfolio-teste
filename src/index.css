@@ -23,6 +23,24 @@
   --radius-sm: 8px;
 }
 
+[data-theme="light"] {
+  --blue: #0066FF;
+  --blue-dark: #0052CC;
+  --blue-bright: #3388FF;
+  --cyan: #00A8CC;
+  --black: #F5F5FA;
+  --surface: #FFFFFF;
+  --surface2: #F0F0F5;
+  --surface3: #E8E8F0;
+  --border: #D0D0DD;
+  --border-light: rgba(0, 102, 255, 0.1);
+  --text: #1A1A2E;
+  --muted: #666680;
+  --muted-light: #8888AA;
+  --glass: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 102, 255, 0.1);
+}
+
 html { scroll-behavior: smooth; }
 
 body {
@@ -94,11 +112,52 @@ nav {
   -webkit-backdrop-filter: blur(20px) saturate(1.5);
   background: rgba(5, 5, 8, 0.5);
   transition: background .3s;
+  gap: 16px;
 }
 nav.scrolled {
   background: rgba(5, 5, 8, 0.85);
   border-bottom: 1px solid var(--glass-border);
 }
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.lang-switcher {
+  display: flex;
+  gap: 4px;
+}
+.lang-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  transition: border-color .2s, opacity .2s;
+  opacity: .5;
+  padding: 0;
+}
+.lang-btn:hover { opacity: .8; border-color: var(--blue); }
+.lang-btn.active { opacity: 1; border-color: var(--blue); box-shadow: 0 0 6px rgba(0, 102, 255, 0.2); }
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  color: var(--muted);
+  transition: border-color .2s, color .2s;
+  padding: 0;
+}
+.theme-toggle:hover { color: var(--blue); border-color: var(--blue); }
 .nav-logo {
   font-family: var(--mono);
   font-size: 14px;
@@ -1146,8 +1205,9 @@ footer span { color: var(--blue); }
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
-  nav { padding: 20px 24px; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  nav { padding: 12px 24px; backdrop-filter: none; -webkit-backdrop-filter: none; }
   .nav-links { display: none; }
+  .nav-controls { gap: 4px; }
   body::before { display: none; }
   .glass-card { backdrop-filter: none; -webkit-backdrop-filter: none; }
   .stat-item { backdrop-filter: none; }
