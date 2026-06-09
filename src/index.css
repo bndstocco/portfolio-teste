@@ -211,10 +211,14 @@ nav.scrolled {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 0 48px;
+  padding: 80px 48px 0;
   position: relative;
   overflow: hidden;
 }
+section[id] { scroll-margin-top: 80px; }
+body { transition: background .3s, color .3s; }
+nav { transition: background .3s, border-color .3s, backdrop-filter .3s; }
+.glass-card { transition: background .3s, border-color .3s, transform .3s; }
 .hero-grid-bg {
   position: absolute;
   inset: 0;
@@ -1212,9 +1216,11 @@ footer span { color: var(--blue); }
   .glass-card { backdrop-filter: none; -webkit-backdrop-filter: none; }
   .stat-item { backdrop-filter: none; }
   section { padding: 80px 24px; }
-  #hero { padding: 0 24px; }
+  #hero { padding: 80px 24px 0; flex-direction: column; align-items: flex-start; justify-content: center; gap: 48px; }
   .hero-grid-bg { display: none; }
-  .hero-stats { display: none; }
+  .hero-stats { position: static; transform: none; flex-direction: row; gap: 16px; flex-wrap: wrap; }
+  .stat-item { text-align: left; padding: 12px 16px; flex: 1; min-width: 100px; }
+  .stat-num { font-size: 28px; }
   .hero-number { display: none; }
   .hero-scroll { display: none; }
   .hero-orb, .hero-orb-2, .hero-orb-3 { display: none; }

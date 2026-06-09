@@ -38,7 +38,7 @@ const esES = {
       { name: 'PHP y MySQL', provider: 'Alura', year: '2025', icon: 'php' },
       { name: 'PHP en la Web: MVC', provider: 'Alura', year: '2025', icon: 'php' },
       { name: 'WordPress & Desarrollo de Plugins', provider: 'Certificaciones diversas', year: '2024', icon: 'wordpress' },
-      { name: '30+ certificaciones en PHP', provider: 'Portfolio completo', year: 'En curso', icon: 'php' },
+      { name: '30+ certificaciones en PHP', provider: 'Portfolio completo', year: '2024', icon: 'php' },
     ],
   },
   skills: {

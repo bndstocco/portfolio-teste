@@ -38,7 +38,7 @@ const enUS = {
       { name: 'PHP and MySQL', provider: 'Alura', year: '2025', icon: 'php' },
       { name: 'PHP on the Web: MVC', provider: 'Alura', year: '2025', icon: 'php' },
       { name: 'WordPress & Plugin Development', provider: 'Multiple certifications', year: '2024', icon: 'wordpress' },
-      { name: '30+ PHP Certifications', provider: 'Complete portfolio', year: 'In progress', icon: 'php' },
+      { name: '30+ PHP Certifications', provider: 'Complete portfolio', year: '2024', icon: 'php' },
     ],
   },
   skills: {
