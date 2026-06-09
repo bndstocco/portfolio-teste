@@ -62,11 +62,7 @@ export default function Experience() {
     return () => ctx.revert();
   }, []);
 
-  const totalMonths = EXPERIENCES.reduce((acc, exp) => {
-    const months = exp.period.includes('6 meses') ? 6 : 30;
-    return acc + months;
-  }, 0);
-  const totalYears = (totalMonths / 12).toFixed(1);
+  const totalYears = '3';
 
   const allSkills = [...new Set(EXPERIENCES.flatMap((e) => e.skills))];
 
