@@ -1441,6 +1441,28 @@ footer span { color: var(--blue); }
   .cert-grid { grid-template-columns: 1fr; }
 }
 
+/* ── WhatsApp Float ── */
+.whatsapp-float {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #25D366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+  transition: transform .2s, box-shadow .2s;
+}
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.6);
+}
+
 @media (pointer: coarse) {
   .cursor, .cursor-ring { display: none !important; }
 }
