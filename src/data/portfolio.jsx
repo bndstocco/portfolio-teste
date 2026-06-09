@@ -40,7 +40,7 @@ export const ABOUT = {
     { name: 'PHP e MySQL', provider: 'Alura', year: '2025', icon: 'php' },
     { name: 'PHP na Web: MVC', provider: 'Alura', year: '2025', icon: 'php' },
     { name: 'WordPress & Plugin Development', provider: 'Certificações diversas', year: '2024', icon: 'wordpress' },
-    { name: '30+ certificações em PHP', provider: 'Portfolio completo', year: 'Ongoing', icon: 'php' },
+    { name: '30+ certificações em PHP', provider: 'Portfolio completo', year: 'Em andamento', icon: 'php' },
   ],
 };
 
