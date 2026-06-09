@@ -14,7 +14,7 @@ export default function StackMarquee() {
     const width = el.scrollWidth / 2;
     const tween = gsap.to(el, {
       x: -width,
-      duration: isMobile ? 20 : 30,
+      duration: isMobile ? 17 : 30,
       repeat: -1,
       ease: 'none',
     });
