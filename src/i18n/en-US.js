@@ -16,7 +16,7 @@ const enUS = {
     stats: [
       { num: '3', suffix: '+', label: 'Years exp.' },
       { num: '40', suffix: '+', label: 'Certifications' },
-      { num: '30', suffix: '+', label: 'PHP Certs.' },
+      { num: '15', suffix: '+', label: 'Websites made' },
     ],
     cta1: 'View experience',
     cta2: 'Get in touch',

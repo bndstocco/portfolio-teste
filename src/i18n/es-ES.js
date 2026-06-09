@@ -16,7 +16,7 @@ const esES = {
     stats: [
       { num: '3', suffix: '+', label: 'Años de exp.' },
       { num: '40', suffix: '+', label: 'Certificaciones' },
-      { num: '30', suffix: '+', label: 'Cert. en PHP' },
+      { num: '15', suffix: '+', label: 'Sitios web hechos' },
     ],
     cta1: 'Ver experiencia',
     cta2: 'Contactar',

@@ -20,7 +20,7 @@ export const HERO = {
   stats: [
     { num: '3', suffix: '+', label: 'Anos de exp.' },
     { num: '40', suffix: '+', label: 'Certificações' },
-    { num: '30', suffix: '+', label: 'Cert. em PHP' },
+    { num: '15', suffix: '+', label: 'Websites feitos' },
   ],
 };
 
